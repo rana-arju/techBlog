@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post(
   '/register',
-  validationRequest(authValidation.registrationValidation),
+  //validationRequest(authValidation.registrationValidation),
   userController.registrationUser,
 );
 
