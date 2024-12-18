@@ -25,6 +25,16 @@ const registrationUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 
         data: result,
     });
 }));
+const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield auth_service_1.authServices.loginUser(req.body);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: 200,
+        message: 'Login successful',
+        data: result,
+    });
+}));
 exports.userController = {
     registrationUser,
+    loginUser,
 };

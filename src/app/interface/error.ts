@@ -3,8 +3,6 @@ export type IErrorSources = {
   message: string;
 }[];
 
-
-
 export type IGenericErrorResponse = {
   statusCode: number;
   message: string;

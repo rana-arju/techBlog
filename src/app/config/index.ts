@@ -6,5 +6,7 @@ export default {
   port: process.env.PORT,
   database_url: process.env.DATABASE_URL,
   salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
-  node_env: process.env.NODE_ENV
+  node_env: process.env.NODE_ENV,
+  token: process.env.JWT_ACCESS_TOKEN,
+  token_time: process.env.JWT_ACCESS_EXPIRES,
 };

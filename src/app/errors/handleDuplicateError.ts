@@ -2,7 +2,6 @@
 import { IErrorSources, IGenericErrorResponse } from '../interface/error';
 
 const handleDuplicateError = (err: any): IGenericErrorResponse => {
-    
   const match = err.message.match(/"([^"]*)"/);
   const extractedMessage = match && match[1];
   const errorSources: IErrorSources = [

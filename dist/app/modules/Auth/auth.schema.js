@@ -69,6 +69,11 @@ userSchema.post('save', function (doc, next) {
     doc.password = '';
     next();
 });
+userSchema.statics.isPasswordMatched = function (plainTextpassword, hashPassword) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield bcrypt_1.default.compare(plainTextpassword, hashPassword);
+    });
+};
 userSchema.statics.isUserExistByEmail = function (email) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield User.findOne({ email });
