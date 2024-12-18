@@ -8,10 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userServices = void 0;
-const registrationUserIntoDB = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.authServices = void 0;
+const auth_schema_1 = __importDefault(require("./auth.schema"));
+const registrationUserIntoDB = (userData) => __awaiter(void 0, void 0, void 0, function* () {
+    // Check if user already exists in the database
+    const user = yield auth_schema_1.default.isUserExistByEmail(userData.email);
+    if (user) {
+        throw new Error('User already exists.');
+    }
+    const result = yield auth_schema_1.default.create(userData);
+    return result;
 });
-exports.userServices = {
+exports.authServices = {
     registrationUserIntoDB,
 };

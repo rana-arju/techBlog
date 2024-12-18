@@ -21,5 +21,5 @@ const blogSchema = new Schema<IBlog>(
   { timestamps: true },
 );
 
-const Blog = model('Blog', blogSchema);
+const Blog = model<IBlog>('Blog', blogSchema);
 export default Blog;

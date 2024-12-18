@@ -12,19 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userController = void 0;
-const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
-const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
-const auth_service_1 = require("./auth.service");
-const registrationUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield auth_service_1.authServices.registrationUserIntoDB(req.body);
-    (0, sendResponse_1.default)(res, {
-        success: true,
-        statusCode: 201,
-        message: 'User registered successfully',
-        data: result,
-    });
-}));
-exports.userController = {
-    registrationUser,
+const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
+const validationRequest = (schema) => {
+    return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield schema.parseAsync({
+            body: req.body
+        });
+        next();
+    }));
 };
+exports.default = validationRequest;
