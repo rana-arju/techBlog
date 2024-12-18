@@ -7,4 +7,4 @@ const router = express.Router();
 router.post('/register', userController.registrationUser);
 
 
-export const StudentRoutes = router;
+export const userRoutes = router;
