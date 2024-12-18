@@ -79,5 +79,10 @@ userSchema.statics.isUserExistByEmail = function (email) {
         return yield User.findOne({ email });
     });
 };
+userSchema.statics.isUserExistById = function (id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield User.findById(id);
+    });
+};
 const User = (0, mongoose_1.model)('User', userSchema);
 exports.default = User;

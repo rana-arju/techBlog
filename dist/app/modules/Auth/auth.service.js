@@ -34,7 +34,7 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         throw new AppError_1.default(401, 'Invalid credentials');
     }
     const jwtPayload = {
-        email: user === null || user === void 0 ? void 0 : user.email,
+        userId: user === null || user === void 0 ? void 0 : user._id,
         role: user === null || user === void 0 ? void 0 : user.role,
     };
     const accessToken = (0, auth_utils_1.createToken)(jwtPayload, config_1.default.token, config_1.default.token_time);

@@ -17,8 +17,8 @@ const registrationValidation = zod_1.z.object({
             required_error: 'Password is required',
         })
             .min(8),
-        isBlocked: zod_1.z.boolean().optional(),
-        role: zod_1.z.enum(['admin', 'user']).optional(),
+        isBlocked: zod_1.z.boolean().default(false).optional(),
+        role: zod_1.z.enum(['admin', 'user']).default('user').optional(),
     }),
 });
 const loginValidation = zod_1.z.object({

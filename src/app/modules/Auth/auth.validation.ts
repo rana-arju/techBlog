@@ -15,8 +15,8 @@ const registrationValidation = z.object({
         required_error: 'Password is required',
       })
       .min(8),
-    isBlocked: z.boolean().optional(),
-    role: z.enum(['admin', 'user']).optional(),
+    isBlocked: z.boolean().default(false).optional(),
+    role: z.enum(['admin', 'user']).default('user').optional(),
   }),
 });
 const loginValidation = z.object({

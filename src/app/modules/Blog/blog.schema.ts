@@ -17,6 +17,10 @@ const blogSchema = new Schema<IBlog>(
       ref: 'User',
       required: true,
     },
+    isPublished: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true },
 );
