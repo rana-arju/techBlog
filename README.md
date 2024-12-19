@@ -1,21 +1,25 @@
-
 # Teach Blog - blogging backend
 
 The Blog Project is a backend system for a blogging platform with Admin and User roles. Admins manage users and blogs, while Users can perform CRUD operations on their own blogs. Features include secure authentication, role-based access control, and a public API with search, sort, and filter functionalities. Built with TypeScript, Node.js, Express.js, and MongoDB, the project ensures security and efficiency.
+
 ## Developer
 
-- [@Rana Arju](https://github.com/rana-arju)
+- [@Rana Arju](https://rana-arju.vercel.app)
 
 ## Live API url
+
 <https://techblog-server.vercel.app/>
+
 # or
+
 ```
 https://techblog-server.vercel.app/
 
 ```
+
 ## Video Explaination:
 
-[![BY-Cycle store](https://res.cloudinary.com/db8l1ulfq/image/upload/v1732376843/bi-cycle_l1wqwn.png)](https://youtu.be/UAo5M98yehk?si=JR22lwTtXNUUykbL)
+[![Tech-Blog](https://res.cloudinary.com/db8l1ulfq/image/upload/v1734604071/tech_backend_qvgj2z.png)](https://youtu.be/UAo5M98yehk?si=JR22lwTtXNUUykbL)
 
 ### Technologies Used
 
@@ -24,56 +28,60 @@ https://techblog-server.vercel.app/
 - **Express.js**: Framework for building RESTful APIs.
 - **MongoDB & Mongoose**: NoSQL database with an ORM for schema validation and CRUD operations.
 
-
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-
-
-``` 
+```
 DATABASE_URL= <Your database URL>
 PORT= <Port number>
 NODE_ENV = development
 
-BCRYPT_SALT_ROUNDS= 
-JWT_ACCESS_TOKEN= 
-REFRESH_TOKEN= 
+BCRYPT_SALT_ROUNDS=
+JWT_ACCESS_TOKEN=
+REFRESH_TOKEN=
 
-JWT_ACCESS_EXPIRES = 
-REFRESH_ACCESS_EXPIRES = 
+JWT_ACCESS_EXPIRES =
+REFRESH_ACCESS_EXPIRES =
 
 ```
 
+## Admin login crediential:
+
+```
+email: admin@gmail.com
+password: admin1234
+```
 
 ## Installation
 
 Install my-project with npm
 
 ### You will need to download Git and Node to run this project
-* Node
-* Git
-* npm
-### Also check this out if you are new to react.
+
+- Node
+- Git
+- npm
+
+### Also check this out if you are new to node js.
+
 ```bash
 node --version
 git --version
 ```
 
-    
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://github.com/rana-arju/bi-cycle-backend.git
+  git clone https://github.com/rana-arju/techBlog.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd bi-cycle-backend
+  cd techBlog
 ```
 
 Install dependencies
@@ -88,20 +96,22 @@ Start the server
   npm run dev
 ```
 
-
 ## API Endpoint
 
-#### Get all Product with query 
+#### Get all Product with query
 
 ```http
   GET /api/products?searchTerm=
 ```
+
 #### Post single product
 
 ```http
   POST /api/products/:productId
 ```
-## Product example: 
+
+## Product example:
+
 ```
 {
   "name": "Roadster 5000",
@@ -114,6 +124,7 @@ Start the server
 }
 
 ```
+
 #### Get single product
 
 ```http
@@ -125,17 +136,21 @@ Start the server
 ```http
   DELETE /api/products/:productId
 ```
+
 #### Update single product
 
 ```http
   PUT /api/products/:productId
 ```
+
 #### Post a Order
 
 ```http
   POST /api/orders
 ```
+
 ### Order Example [totalPrice optional, functionality build for count totalPrice if totalPrice not provided]
+
 ```
 {
     "email": "rana23@example.com",
@@ -145,12 +160,12 @@ Start the server
 }
 
 ```
+
 #### Get all Order
 
 ```http
   GET /api/orders
 ```
-
 
 #### Get Order single product
 
@@ -163,6 +178,7 @@ Start the server
 ```http
   DELETE /api/orders/:orderId
 ```
+
 #### Update single order
 
 ```http
@@ -170,7 +186,6 @@ Start the server
 ```
 
 # Folder Structure 📂
-
 
 ```bash
 ├── README.md
@@ -184,22 +199,37 @@ Start the server
 │   └── app
 │      ├── config
 │      │    └── index.ts
+|      ├── builder
+│      │    └── QueryBuilder.ts
+|      ├── errors
+│      │    └── error all files
+|      ├── middleware
+│      │    └── auth, globalErrorHandler,notFound and validationRequest file
 │      └── modules
-|         ├── globalError.ts
-|         ├── notFoundError.ts
-│         └── orders
-|         |    ├── orders.controller.ts
-|         |    ├── orders.model.ts
-|         |    ├── orders.interface.ts
-|         |    ├── orders.service.ts
-|         |    ├── orders.route.ts
-│         └── porducts
-|               ├── products.controller.ts
-|               ├── products.model.ts
-|               ├── products.interface.ts
-|               ├── products.service.ts
-|               └── products.route.ts
-│   
+│         └── Admin
+|         |    ├── admin.controller.ts
+|         |    ├── admin.service.ts
+|         |    ├── admin.route.ts
+│         └── Auth
+|               ├── auth.controller.ts
+|               ├── auth.schema.ts
+|               ├── auth.interface.ts
+|               ├── auth.service.ts
+|               ├── auth.utils.ts
+|               ├── auth.validation.ts
+|               └── auth.route.ts
+│         └── Blog
+|               ├── blog.controller.ts
+|               ├── blog.schema.ts
+|               ├── blog.interface.ts
+|               ├── blog.service.ts
+|               ├── blog.validation.ts
+|               └── blog.route.ts
+│      └── routes
+│         └── index.ts
+│      └── utils
+│         └── catchAsync.ts and sendResponse.ts
+│
 ├──  vercel.json
 ├──  eslint.config.mjs
 ├── .gitignore
@@ -210,16 +240,20 @@ Start the server
 
 ---
 
-# Packages Used  📦
+# Packages Used 📦
 
-|   Used Package List    |
-| :--------------------: |
-|    express js          |
-|     mongoose           |
-|     typescript         |
-|      cors              |
-|      dotenv            |
-|      prettier          |
-|     eslint__js         |
+| Used Package List |
+| :---------------: |
+|    express js     |
+|     mongoose      |
+|    typescript     |
+|        JWT        |
+|   jsonWebToken    |
+|      bcrypt       |
+|        Zod        |
+|       cors        |
+|      dotenv       |
+|     prettier      |
+|   eslint\_\_js    |
 
 ---

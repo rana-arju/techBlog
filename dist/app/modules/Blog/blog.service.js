@@ -23,11 +23,14 @@ const createBlogPost = (payload) => __awaiter(void 0, void 0, void 0, function* 
     if (!user || user.isBlocked) {
         throw new AppError_1.default(404, 'Invalid user. You can not create a blog post');
     }
+    // create new blog post
     const result = yield blog_schema_1.default.create(payload);
     if (!result) {
         throw new AppError_1.default(500, 'Failed to create blog post');
     }
-    return result;
+    // new post created blog get for user details show
+    const blogDetails = yield blog_schema_1.default.findById(result._id).populate('author');
+    return blogDetails;
 });
 const updateBlogPost = (id, userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if user already exists in the database
@@ -43,13 +46,13 @@ const updateBlogPost = (id, userId, payload) => __awaiter(void 0, void 0, void 0
     const result = yield blog_schema_1.default.findByIdAndUpdate(id, payload, {
         new: true,
         runValidators: true,
-    });
+    }).populate('author');
     if (!result) {
         throw new AppError_1.default(500, 'Failed to update blog post');
     }
     return result;
 });
-const deleteBlogPost = (id, userId, role) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteBlogPost = (id, userId) => __awaiter(void 0, void 0, void 0, function* () {
     // this blog exists or not
     const isBlogExist = yield blog_schema_1.default.findById(id);
     const user = yield auth_schema_1.default.isUserExistById(userId);
@@ -59,16 +62,10 @@ const deleteBlogPost = (id, userId, role) => __awaiter(void 0, void 0, void 0, f
     if (!user || user.isBlocked) {
         throw new AppError_1.default(404, 'Invalid user. You can not update this blog');
     }
-    // Check if user already exists in the database
-    if (role === 'admin') {
-        const result = yield blog_schema_1.default.findByIdAndDelete(id);
-        return result;
-    }
     if (isBlogExist.author.toString() !== userId) {
         throw new AppError_1.default(403, 'You can not delete this blog');
     }
     const result = yield blog_schema_1.default.findByIdAndDelete(id);
-    console.log('result', result);
     return result;
 });
 const getAllBlogs = (query) => __awaiter(void 0, void 0, void 0, function* () {

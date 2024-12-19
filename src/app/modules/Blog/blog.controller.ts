@@ -30,8 +30,8 @@ const updateBlog = catchAsync(async (req, res) => {
 });
 const deletedBlog = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const { userId, role } = req.user as JwtPayload;
-  await blogService.deleteBlogPost(id, userId, role);
+  const { userId } = req.user as JwtPayload;
+  await blogService.deleteBlogPost(id, userId);
 
   sendResponse(res, {
     success: true,

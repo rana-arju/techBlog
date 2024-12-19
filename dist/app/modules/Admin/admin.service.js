@@ -18,9 +18,13 @@ const auth_schema_1 = __importDefault(require("../Auth/auth.schema"));
 const blog_schema_1 = __importDefault(require("../Blog/blog.schema"));
 const userBlockByAdmin = (id, userId) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if user already exists in the database
-    const user = yield auth_schema_1.default.isUserExistById(id);
-    if (!user || user.isBlocked || (user === null || user === void 0 ? void 0 : user.role) !== 'admin') {
-        throw new AppError_1.default(404, 'Invalid user. You can not blocked any user!');
+    const admin = yield auth_schema_1.default.isUserExistById(id);
+    const user = yield auth_schema_1.default.isUserExistById(userId);
+    if (!admin || admin.isBlocked || (admin === null || admin === void 0 ? void 0 : admin.role) !== 'admin') {
+        throw new AppError_1.default(401, 'Invalid user. You can not blocked any user!');
+    }
+    if (!user || user.isBlocked) {
+        throw new AppError_1.default(404, 'User already blocked or not exist');
     }
     const result = yield auth_schema_1.default.findByIdAndUpdate(userId, { isBlocked: true }, {
         new: true,

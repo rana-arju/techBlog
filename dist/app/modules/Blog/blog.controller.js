@@ -42,8 +42,8 @@ const updateBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 }));
 const deletedBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const { userId, role } = req.user;
-    yield blog_service_1.blogService.deleteBlogPost(id, userId, role);
+    const { userId } = req.user;
+    yield blog_service_1.blogService.deleteBlogPost(id, userId);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: 200,

@@ -5,10 +5,14 @@ import Blog from '../Blog/blog.schema';
 const userBlockByAdmin = async (id: string, userId: string) => {
   // Check if user already exists in the database
 
-  const user = await User.isUserExistById(id);
+  const admin = await User.isUserExistById(id);
+  const user = await User.isUserExistById(userId);
 
-  if (!user || user.isBlocked || user?.role !== 'admin') {
-    throw new AppError(404, 'Invalid user. You can not blocked any user!');
+  if (!admin || admin.isBlocked || admin?.role !== 'admin') {
+    throw new AppError(401, 'Invalid user. You can not blocked any user!');
+  }
+  if (!user || user.isBlocked) {
+    throw new AppError(404, 'User already blocked or not exist');
   }
 
   const result = await User.findByIdAndUpdate(
