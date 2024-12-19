@@ -14,7 +14,14 @@ const blogCreateValidation = z.object({
     isPublished: z.boolean().default(true),
   }),
 });
+const blogUpdateValidation = z.object({
+  body: z.object({
+    title: z.string().optional(),
+    content: z.string().optional(),
+  }),
+});
 
 export const blogValidation = {
   blogCreateValidation,
+  blogUpdateValidation,
 };

@@ -8,7 +8,6 @@ import User from '../modules/Auth/auth.schema';
 const auth = (...requiredRoles: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
-    console.log(req.headers);
 
     const token = authHeader && authHeader.split(' ')[1];
 

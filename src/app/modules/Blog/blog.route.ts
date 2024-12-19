@@ -12,5 +12,11 @@ router.post(
   validationRequest(blogValidation.blogCreateValidation),
   blogsController.createBlog,
 );
+router.patch(
+  '/:id',
+  auth('user'),
+  validationRequest(blogValidation.blogUpdateValidation),
+  blogsController.updateBlog,
+);
 
 export const blogRouter = router;
