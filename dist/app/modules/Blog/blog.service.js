@@ -62,7 +62,6 @@ const deleteBlogPost = (id, userId, role) => __awaiter(void 0, void 0, void 0, f
     // Check if user already exists in the database
     if (role === 'admin') {
         const result = yield blog_schema_1.default.findByIdAndDelete(id);
-        console.log('result admin', result);
         return result;
     }
     if (isBlogExist.author.toString() !== userId) {

@@ -59,7 +59,6 @@ const deleteBlogPost = async (id: string, userId: string, role: string) => {
   // Check if user already exists in the database
   if (role === 'admin') {
     const result = await Blog.findByIdAndDelete(id);
-    console.log('result admin', result);
     return result;
   }
   if (isBlogExist.author.toString() !== userId) {
