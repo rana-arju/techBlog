@@ -19,7 +19,6 @@ class QueryBuilder {
         return this;
     }
     filter() {
-        var _a;
         const queryObj = Object.assign({}, this.query);
         const excludingImportant = [
             'search',
@@ -32,8 +31,10 @@ class QueryBuilder {
         ];
         // exclude query fields
         excludingImportant.forEach((key) => delete queryObj[key]);
-        const author = (_a = this === null || this === void 0 ? void 0 : this.query) === null || _a === void 0 ? void 0 : _a.filter;
-        this.modelQuery = this.modelQuery.find({ author });
+        if (this.query.filter) {
+            queryObj.author = this.query.filter;
+        }
+        this.modelQuery = this.modelQuery.find(queryObj);
         return this;
     }
     paginate() {

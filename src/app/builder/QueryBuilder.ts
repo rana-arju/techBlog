@@ -41,8 +41,11 @@ class QueryBuilder<T> {
 
     // exclude query fields
     excludingImportant.forEach((key) => delete queryObj[key]);
-    const author = this?.query?.filter;
-    this.modelQuery = this.modelQuery.find({ author });
+
+    if (this.query.filter) {
+        queryObj.author = this.query.filter  
+    }
+    this.modelQuery = this.modelQuery.find(queryObj);
 
     return this;
   }
@@ -59,6 +62,7 @@ class QueryBuilder<T> {
   }
 
   sort() {
+
     let sortStr;
 
     if (this?.query?.sortBy && this?.query?.sortOrder) {
