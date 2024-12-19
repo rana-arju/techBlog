@@ -98,91 +98,100 @@ Start the server
 
 ## API Endpoint
 
-#### Get all Product with query
+#### Registration user
 
 ```http
-  GET /api/products?searchTerm=
+  POST /api/auth/register
 ```
 
-#### Post single product
+### User Example
 
-```http
-  POST /api/products/:productId
-```
-
-## Product example:
+Request Body:
 
 ```
+
 {
-  "name": "Roadster 5000",
-  "brand": "SpeedX",
-  "price": 300,
-  "type": "Road",
-  "description": "A premium road bike designed for speed and performance.",
-  "quantity": 20,
-  "inStock": true
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "securepassword"
 }
 
 ```
 
-#### Get single product
+#### Login User
 
 ```http
-  GET /api/products/:productId
+  POST /api/auth/login
 ```
 
-#### delete single product
+#### Get all Blogs with query or without
+
+## Example:
+
+```
+/api/blogs?search=technology&sortBy=createdAt&sortOrder=desc&filter=60b8f42f9c2a3c9b7cbd4f18
+```
 
 ```http
-  DELETE /api/products/:productId
+  GET /api/blogs
 ```
 
-#### Update single product
+#### Post Blog (only login user can post blog)
 
 ```http
-  PUT /api/products/:productId
+  POST /api/blogs
 ```
 
-#### Post a Order
+## Blog example:
 
-```http
-  POST /api/orders
-```
-
-### Order Example [totalPrice optional, functionality build for count totalPrice if totalPrice not provided]
+Request Body:
 
 ```
+
 {
-    "email": "rana23@example.com",
-    "product": "674057007c9f75443d09e463",
-    "quantity": 1,
-    "totalPrice": 950
+  "title": "My First Blog",
+  "content": "This is the content of my blog."
 }
 
 ```
 
-#### Get all Order
+#### Delete own blog
 
 ```http
-  GET /api/orders
+  DELETE /api/blogs/:id
 ```
 
-#### Get Order single product
+#### Update own single blog
 
 ```http
-  GET /api/orders/:orderId
+  PATCH /api/blogs/:id
 ```
 
-#### delete single order
+## Blog example:
 
-```http
-  DELETE /api/orders/:orderId
+Request Body:
+
 ```
 
-#### Update single order
+{
+  "title": "Updated Blog Title",
+  "content": "Updated content."
+}
+
+```
+
+## Admin Action API
+
+#### Blocked any user
 
 ```http
-  PUT /api/orders/:orderId
+  PATCH /api/admin/users/:userId/block
+```
+
+#### Delete Users blog
+
+```http
+  DELETE /api/admin/blogs/:id
 ```
 
 # Folder Structure 📂
