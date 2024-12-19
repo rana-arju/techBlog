@@ -16,6 +16,7 @@ exports.blogService = void 0;
 const auth_schema_1 = __importDefault(require("../Auth/auth.schema"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const blog_schema_1 = __importDefault(require("./blog.schema"));
+const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const createBlogPost = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if user already exists in the database
     const user = yield auth_schema_1.default.findById(payload.author);
@@ -71,8 +72,20 @@ const deleteBlogPost = (id, userId, role) => __awaiter(void 0, void 0, void 0, f
     console.log('result', result);
     return result;
 });
+const getAllBlogs = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const searchableFields = ['title', 'content'];
+    const blogs = new QueryBuilder_1.default(blog_schema_1.default.find().populate('author'), query)
+        .search(searchableFields)
+        .filter()
+        .sort()
+        .paginate()
+        .select();
+    const result = yield blogs.modelQuery;
+    return result;
+});
 exports.blogService = {
     createBlogPost,
     updateBlogPost,
     deleteBlogPost,
+    getAllBlogs,
 };

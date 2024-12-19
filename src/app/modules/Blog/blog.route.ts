@@ -6,13 +6,14 @@ import auth from '../../middleware/auth';
 
 const router = Router();
 
+router.get('/', blogsController.getAlldBlogs);
 router.post(
   '/',
   auth('admin', 'user'),
   validationRequest(blogValidation.blogCreateValidation),
   blogsController.createBlog,
 );
-router.delete('/:id', auth('user',"admin"), blogsController.deletedBlog);
+router.delete('/:id', auth('user', 'admin'), blogsController.deletedBlog);
 router.patch(
   '/:id',
   auth('user'),

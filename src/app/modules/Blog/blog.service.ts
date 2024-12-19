@@ -2,6 +2,7 @@ import { IBlog } from './blog.interface';
 import User from '../Auth/auth.schema';
 import AppError from '../../errors/AppError';
 import Blog from './blog.schema';
+import QueryBuilder from '../../builder/QueryBuilder';
 
 const createBlogPost = async (payload: IBlog) => {
   // Check if user already exists in the database
@@ -70,8 +71,23 @@ const deleteBlogPost = async (id: string, userId: string, role: string) => {
   return result;
 };
 
+const getAllBlogs = async (query: Record<string, unknown>) => {
+  const searchableFields = ['title', 'content'];
+
+  const blogs = new QueryBuilder(Blog.find().populate('author'), query)
+    .search(searchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .select();
+
+  const result = await blogs.modelQuery;
+  return result;
+};
+
 export const blogService = {
   createBlogPost,
   updateBlogPost,
   deleteBlogPost,
+  getAllBlogs,
 };
