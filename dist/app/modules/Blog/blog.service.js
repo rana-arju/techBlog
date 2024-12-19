@@ -19,7 +19,7 @@ const blog_schema_1 = __importDefault(require("./blog.schema"));
 const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const createBlogPost = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if user already exists in the database
-    const user = yield auth_schema_1.default.findById(payload.author);
+    const user = yield auth_schema_1.default.isUserExistById(payload === null || payload === void 0 ? void 0 : payload.author.toString());
     if (!user || user.isBlocked) {
         throw new AppError_1.default(404, 'Invalid user. You can not create a blog post');
     }
@@ -31,7 +31,7 @@ const createBlogPost = (payload) => __awaiter(void 0, void 0, void 0, function* 
 });
 const updateBlogPost = (id, userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if user already exists in the database
-    const user = yield auth_schema_1.default.findById(userId);
+    const user = yield auth_schema_1.default.isUserExistById(userId);
     const isBlogExist = yield blog_schema_1.default.findById(id);
     if (!user || user.isBlocked) {
         throw new AppError_1.default(404, 'Invalid user. You can not update this blog');
@@ -52,7 +52,7 @@ const updateBlogPost = (id, userId, payload) => __awaiter(void 0, void 0, void 0
 const deleteBlogPost = (id, userId, role) => __awaiter(void 0, void 0, void 0, function* () {
     // this blog exists or not
     const isBlogExist = yield blog_schema_1.default.findById(id);
-    const user = yield auth_schema_1.default.findById(userId);
+    const user = yield auth_schema_1.default.isUserExistById(userId);
     if (!isBlogExist) {
         throw new AppError_1.default(404, 'This blog post not exist');
     }

@@ -5,7 +5,7 @@ import Blog from '../Blog/blog.schema';
 const userBlockByAdmin = async (id: string, userId: string) => {
   // Check if user already exists in the database
 
-  const user = await User.findById(id);
+  const user = await User.isUserExistById(id);
 
   if (!user || user.isBlocked || user?.role !== 'admin') {
     throw new AppError(404, 'Invalid user. You can not blocked any user!');
@@ -31,7 +31,7 @@ const deleteBlogByAdmin = async (
 ) => {
   // this blog exists or not
   const isBlogExist = await Blog.findById(blogId);
-  const user = await User.findById(userId);
+  const user = await User.isUserExistById(userId);
 
   if (!isBlogExist) {
     throw new AppError(404, 'This blog not exist');

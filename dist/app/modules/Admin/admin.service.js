@@ -18,7 +18,7 @@ const auth_schema_1 = __importDefault(require("../Auth/auth.schema"));
 const blog_schema_1 = __importDefault(require("../Blog/blog.schema"));
 const userBlockByAdmin = (id, userId) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if user already exists in the database
-    const user = yield auth_schema_1.default.findById(id);
+    const user = yield auth_schema_1.default.isUserExistById(id);
     if (!user || user.isBlocked || (user === null || user === void 0 ? void 0 : user.role) !== 'admin') {
         throw new AppError_1.default(404, 'Invalid user. You can not blocked any user!');
     }
@@ -33,7 +33,7 @@ const userBlockByAdmin = (id, userId) => __awaiter(void 0, void 0, void 0, funct
 const deleteBlogByAdmin = (blogId, userId, role) => __awaiter(void 0, void 0, void 0, function* () {
     // this blog exists or not
     const isBlogExist = yield blog_schema_1.default.findById(blogId);
-    const user = yield auth_schema_1.default.findById(userId);
+    const user = yield auth_schema_1.default.isUserExistById(userId);
     if (!isBlogExist) {
         throw new AppError_1.default(404, 'This blog not exist');
     }

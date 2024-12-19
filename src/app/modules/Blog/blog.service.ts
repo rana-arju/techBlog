@@ -6,7 +6,7 @@ import QueryBuilder from '../../builder/QueryBuilder';
 
 const createBlogPost = async (payload: IBlog) => {
   // Check if user already exists in the database
-  const user = await User.findById(payload.author);
+  const user = await User.isUserExistById(payload?.author.toString());
 
   if (!user || user.isBlocked) {
     throw new AppError(404, 'Invalid user. You can not create a blog post');
@@ -25,7 +25,7 @@ const updateBlogPost = async (
 ) => {
   // Check if user already exists in the database
 
-  const user = await User.findById(userId);
+  const user = await User.isUserExistById(userId);
   const isBlogExist = await Blog.findById(id);
   if (!user || user.isBlocked) {
     throw new AppError(404, 'Invalid user. You can not update this blog');
@@ -47,7 +47,7 @@ const updateBlogPost = async (
 const deleteBlogPost = async (id: string, userId: string, role: string) => {
   // this blog exists or not
   const isBlogExist = await Blog.findById(id);
-  const user = await User.findById(userId);
+  const user = await User.isUserExistById(userId);
 
   if (!isBlogExist) {
     throw new AppError(404, 'This blog post not exist');

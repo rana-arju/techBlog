@@ -43,7 +43,7 @@ class QueryBuilder<T> {
     excludingImportant.forEach((key) => delete queryObj[key]);
 
     if (this.query.filter) {
-        queryObj.author = this.query.filter  
+      queryObj.author = this.query.filter;
     }
     this.modelQuery = this.modelQuery.find(queryObj);
 
@@ -62,7 +62,6 @@ class QueryBuilder<T> {
   }
 
   sort() {
-
     let sortStr;
 
     if (this?.query?.sortBy && this?.query?.sortOrder) {
