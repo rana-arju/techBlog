@@ -10,12 +10,17 @@ const blogCreateValidation = zod_1.z.object({
         content: zod_1.z.string({
             required_error: 'Please write something',
         }),
-        author: zod_1.z.string({
-            required_error: 'Author is required',
-        }),
+        author: zod_1.z.string().optional(),
         isPublished: zod_1.z.boolean().default(true),
+    }),
+});
+const blogUpdateValidation = zod_1.z.object({
+    body: zod_1.z.object({
+        title: zod_1.z.string().optional(),
+        content: zod_1.z.string().optional(),
     }),
 });
 exports.blogValidation = {
     blogCreateValidation,
+    blogUpdateValidation,
 };

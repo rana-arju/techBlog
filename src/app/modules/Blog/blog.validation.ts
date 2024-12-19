@@ -8,9 +8,7 @@ const blogCreateValidation = z.object({
     content: z.string({
       required_error: 'Please write something',
     }),
-    author: z.string({
-      required_error: 'Author is required',
-    }),
+    author: z.string().optional(),
     isPublished: z.boolean().default(true),
   }),
 });

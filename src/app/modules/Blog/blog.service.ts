@@ -25,9 +25,13 @@ const updateBlogPost = async (
   // Check if user already exists in the database
 
   const user = await User.findById(userId);
-
+  const isBlogExist = await Blog.findById(id);
   if (!user || user.isBlocked) {
     throw new AppError(404, 'Invalid user. You can not update this blog');
+  }
+  const author = isBlogExist?.author;
+  if (author?.toString() !== userId) {
+    throw new AppError(403, 'You can not update this blog');
   }
   const result = await Blog.findByIdAndUpdate(id, payload, {
     new: true,
@@ -35,12 +39,39 @@ const updateBlogPost = async (
   });
 
   if (!result) {
-    throw new AppError(500, 'Failed to create blog post');
+    throw new AppError(500, 'Failed to update blog post');
   }
+  return result;
+};
+const deleteBlogPost = async (id: string, userId: string, role: string) => {
+  // this blog exists or not
+  const isBlogExist = await Blog.findById(id);
+  const user = await User.findById(userId);
+
+  if (!isBlogExist) {
+    throw new AppError(404, 'This blog post not exist');
+  }
+
+  if (!user || user.isBlocked) {
+    throw new AppError(404, 'Invalid user. You can not update this blog');
+  }
+  // Check if user already exists in the database
+  if (role === 'admin') {
+    const result = await Blog.findByIdAndDelete(id);
+    console.log('result admin', result);
+    return result;
+  }
+  if (isBlogExist.author.toString() !== userId) {
+    throw new AppError(403, 'You can not delete this blog');
+  }
+  const result = await Blog.findByIdAndDelete(id);
+  console.log('result', result);
+
   return result;
 };
 
 export const blogService = {
   createBlogPost,
   updateBlogPost,
+  deleteBlogPost,
 };

@@ -1,3 +1,4 @@
+import { JwtPayload } from 'jsonwebtoken';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { blogService } from './blog.service';
@@ -27,7 +28,19 @@ const updateBlog = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const deletedBlog = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const { userId, role } = req.user as JwtPayload;
+  await blogService.deleteBlogPost(id, userId, role);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: 'Blog deleted successful',
+  });
+});
 export const blogsController = {
   createBlog,
   updateBlog,
+  deletedBlog,
 };

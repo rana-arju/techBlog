@@ -20,7 +20,6 @@ const auth_schema_1 = __importDefault(require("../modules/Auth/auth.schema"));
 const auth = (...requiredRoles) => {
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const authHeader = req.headers['authorization'];
-        console.log(req.headers);
         const token = authHeader && authHeader.split(' ')[1];
         if (!token) {
             throw new AppError_1.default(401, 'You are unauthorized to access');

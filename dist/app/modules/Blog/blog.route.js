@@ -11,4 +11,6 @@ const blog_validation_1 = require("./blog.validation");
 const auth_1 = __importDefault(require("../../middleware/auth"));
 const router = (0, express_1.Router)();
 router.post('/', (0, auth_1.default)('admin', 'user'), (0, validationRequest_1.default)(blog_validation_1.blogValidation.blogCreateValidation), blog_controller_1.blogsController.createBlog);
+router.delete('/:id', (0, auth_1.default)('user', "admin"), blog_controller_1.blogsController.deletedBlog);
+router.patch('/:id', (0, auth_1.default)('user'), (0, validationRequest_1.default)(blog_validation_1.blogValidation.blogUpdateValidation), blog_controller_1.blogsController.updateBlog);
 exports.blogRouter = router;

@@ -28,6 +28,51 @@ const createBlogPost = (payload) => __awaiter(void 0, void 0, void 0, function* 
     }
     return result;
 });
+const updateBlogPost = (id, userId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    // Check if user already exists in the database
+    const user = yield auth_schema_1.default.findById(userId);
+    const isBlogExist = yield blog_schema_1.default.findById(id);
+    if (!user || user.isBlocked) {
+        throw new AppError_1.default(404, 'Invalid user. You can not update this blog');
+    }
+    const author = isBlogExist === null || isBlogExist === void 0 ? void 0 : isBlogExist.author;
+    if ((author === null || author === void 0 ? void 0 : author.toString()) !== userId) {
+        throw new AppError_1.default(403, 'You can not update this blog');
+    }
+    const result = yield blog_schema_1.default.findByIdAndUpdate(id, payload, {
+        new: true,
+        runValidators: true,
+    });
+    if (!result) {
+        throw new AppError_1.default(500, 'Failed to update blog post');
+    }
+    return result;
+});
+const deleteBlogPost = (id, userId, role) => __awaiter(void 0, void 0, void 0, function* () {
+    // this blog exists or not
+    const isBlogExist = yield blog_schema_1.default.findById(id);
+    const user = yield auth_schema_1.default.findById(userId);
+    if (!isBlogExist) {
+        throw new AppError_1.default(404, 'This blog post not exist');
+    }
+    if (!user || user.isBlocked) {
+        throw new AppError_1.default(404, 'Invalid user. You can not update this blog');
+    }
+    // Check if user already exists in the database
+    if (role === 'admin') {
+        const result = yield blog_schema_1.default.findByIdAndDelete(id);
+        console.log('result admin', result);
+        return result;
+    }
+    if (isBlogExist.author.toString() !== userId) {
+        throw new AppError_1.default(403, 'You can not delete this blog');
+    }
+    const result = yield blog_schema_1.default.findByIdAndDelete(id);
+    console.log('result', result);
+    return result;
+});
 exports.blogService = {
     createBlogPost,
+    updateBlogPost,
+    deleteBlogPost,
 };
