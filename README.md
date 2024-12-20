@@ -19,7 +19,7 @@ https://techblog-server.vercel.app/
 
 ## Video Explaination:
 
-[![Tech-Blog](https://res.cloudinary.com/db8l1ulfq/image/upload/v1734604071/tech_backend_qvgj2z.png)](https://youtu.be/UAo5M98yehk?si=JR22lwTtXNUUykbL)
+[![Tech-Blog](https://res.cloudinary.com/db8l1ulfq/image/upload/v1734604071/tech_backend_qvgj2z.png)](https://youtu.be/YGbQgSO8s5g?si=QwWb50Rs66lNS9jN)
 
 ### Technologies Used
 
